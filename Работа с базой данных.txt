@@ -1,0 +1,22 @@
+SELECT c.login, COUNT (o.id) AS deliveri_order
+FROM "Couriers" AS c
+JOIN "Orders" AS O ON c.id = o."courierId"
+WHERE o."inDelivery" = true
+GROUP BY c."login";
+
+#когда работаешь с двумя таблицами, то  каждой из них присваиваешь переменную(букву перед точкой)
+#далее присваиваем первой таблице переменную с буквой c (логин берется из c таблицы) 
+#далее присоединяем таблицу, присваиваем ей переменную о, а затем связываем по ключам(хештег условно)
+#Проверяем что в таблице о поле inDelivery стоит вариант верный, так как у него логический тип true/false. 
+
+
+SELECT cancelled,
+finished,
+inDelivery 
+          CASE
+          WHEN finished THEN 2,
+          WHEN cancelled THEN -1,
+          WHEN inDelivery THEN 1,
+          ELSE 0
+       END AS status
+FROM "Orders";
